@@ -3,6 +3,10 @@
 
   <h1 class="mb-4"><%= @list.name %></h1>
 
+  <% if @list.photo.attached? %>
+    <%= cl_image_tag @list.photo.key, height: 400, width: 1000, crop: :fill, class: "img-fluid rounded mb-4 w-100" %>
+  <% end %>
+
   <div class="row">
     <!-- Movies column -->
     <div class="col-lg-8">

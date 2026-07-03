@@ -8,6 +8,10 @@
     <% @lists.each do |list| %>
       <div class="col-md-4 mb-4">
         <div class="card h-100">
+          <% if list.photo.attached? %>
+            <%= cl_image_tag list.photo.key, height: 200, width: 400, crop: :fill, class: "card-img-top" %>
+          <% end %>
+
           <div class="card-body">
             <h5 class="card-title"><%= list.name %></h5>
             <p class="card-text text-muted"><%= list.movies.count %> movies</p>
