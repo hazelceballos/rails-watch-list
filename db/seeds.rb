@@ -13,17 +13,19 @@ require "json"
 
 Movie.destroy_all
 
-url = "https://tmdb.lewagon.com/movie/top_rated"
-movies_serialized = URI.parse(url).read
-movies = JSON.parse(movies_serialized)["results"]
+(1..5).each do |page|
+  url = "https://tmdb.lewagon.com/movie/top_rated?page=#{page}"
+  movies_serialized = URI.parse(url).read
+  movies = JSON.parse(movies_serialized)["results"]
 
-movies.each do |movie|
-  Movie.create!(
-    title: movie["title"],
-    overview: movie["overview"],
-    poster_url: "https://image.tmdb.org/t/p/original#{movie["poster_path"]}",
-    rating: movie["vote_average"]
-  )
+  movies.each do |movie|
+    Movie.create!(
+      title: movie["title"],
+      overview: movie["overview"],
+      poster_url: "https://image.tmdb.org/t/p/original#{movie["poster_path"]}",
+      rating: movie["vote_average"]
+    )
+  end
 end
 
 puts "Created #{Movie.count} movies"
